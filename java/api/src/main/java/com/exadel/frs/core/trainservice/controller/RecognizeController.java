@@ -22,6 +22,7 @@ import com.exadel.frs.core.trainservice.dto.ProcessImageParams;
 import com.exadel.frs.core.trainservice.service.FaceProcessService;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,7 @@ import static com.exadel.frs.core.trainservice.system.global.Constants.*;
 public class RecognizeController {
 
     private final FaceProcessService recognitionService;
+    private static Logger logger;
 
     @PostMapping(value = "/recognition/recognize", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public FacesRecognitionResponseDto recognize(
@@ -84,6 +86,10 @@ public class RecognizeController {
             @ApiParam(value = STATUS_DESC) @RequestParam(value = STATUS, required = false, defaultValue = STATUS_DEFAULT_VALUE) final Boolean status,
             @ApiParam(value = PREDICTION_COUNT_DESC) @RequestParam(value = PREDICTION_COUNT_REQUEST_PARAM, required = false, defaultValue = PREDICTION_COUNT_DEFAULT_VALUE) @Min(value = 1, message = PREDICTION_COUNT_MIN_DESC) Integer predictionCount,
             @RequestBody @Valid Base64File request) {
+
+        logger.info("Printing request start");
+        logger.info(request.getContent().toString());
+        logger.info("Printing request end");
 
         ProcessImageParams processImageParams = ProcessImageParams
                 .builder()
