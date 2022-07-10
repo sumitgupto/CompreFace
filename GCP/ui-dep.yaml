@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-ui2
+  name: compreface-ui2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: compreface-ui2
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: compreface-ui2
+    spec:
+      containers:
+        - env:
+            #- name: CLIENT_MAX_BODY_SIZE
+              #value: 10MB
+          image: asia.gcr.io/test-facegate/compreface-ui2:v2
+          name: compreface-ui2
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-ui2
+  name: compreface-ui2
+spec:
+  type: NodePort
+  ports:
+    - name: "8000"
+      port: 8000
+      targetPort: 80
+      nodePort: 31988
+  selector:
+    io.kompose.service: compreface-ui2
+status:
+  loadBalancer: {}

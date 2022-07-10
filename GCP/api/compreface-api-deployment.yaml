@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-api
+  name: compreface-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: compreface-api
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: compreface-api
+    spec:
+      containers:
+        - env:
+            - name: API_JAVA_OPTS
+            - name: MAX_FILE_SIZE
+            - name: MAX_REQUEST_SIZE
+              value: B
+            - name: POSTGRES_PASSWORD
+            - name: POSTGRES_URL
+              value: jdbc:postgresql://:/
+            - name: POSTGRES_USER
+            - name: SAVE_IMAGES_TO_DB
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+          image: asia.gcr.io/test-facegacte/compreface-api:v1
+          name: asia.gcr.io/test-facegacte/compreface-api
+          ports:
+            - containerPort: 8080
+            - containerPort: 5005
+          resources: {}
+      restartPolicy: Always
+status: {}

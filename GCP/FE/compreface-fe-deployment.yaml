@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-fe
+  name: compreface-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: compreface-fe
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: compreface-fe
+    spec:
+      containers:
+        - env:
+            - name: CLIENT_MAX_BODY_SIZE
+          image: asia.gcr.io/test-facegacte/compreface-fe:v1
+          name: asia.gcr.io/test-facegacte/compreface-ui
+          ports:
+            - containerPort: 80
+          resources: {}
+      restartPolicy: Always
+status: {}

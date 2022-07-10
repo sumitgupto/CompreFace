@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-core
+  name: compreface-core
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: compreface-core
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: compreface-core
+    spec:
+      containers:
+        - env:
+            - name: ML_PORT
+              value: "3000"
+          image: asia.gcr.io/test-facegate/compreface-core:v1
+          name: compreface-core
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-core
+  name: compreface-core
+spec:
+  ports:
+    - name: "3300"
+      port: 3300
+      targetPort: 3000
+  selector:
+    io.kompose.service: compreface-core
+status:
+  loadBalancer: {}

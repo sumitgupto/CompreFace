@@ -1,0 +1,100 @@
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data-claim
+  creationTimestamp: null
+  labels:
+    app: postgresapp
+    io.kompose.service: compreface-postgres-db
+spec:
+  storageClassName: standard
+  selector:
+    matchLabels:
+      io.kompose.service: compreface-postgres-db
+      app: postgresapp
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: compreface-postgres-db
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-postgres-db
+    app: postgresapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: compreface-postgres-db
+      app: postgresapp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: compreface-postgres-db
+        app: postgresapp
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: frs
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+          image: asia.gcr.io/test-facegate/compreface-postgres-db:v1
+          name: compreface-postgres-db
+          ports:
+            - containerPort: 5432
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      restartPolicy: Always
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data-claim
+status: {}
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: compreface-postgres-db
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: compreface-postgres-db
+    app: postgresapp
+spec:
+  type: NodePort
+  ports:
+    - name: ports
+      port: 6432
+      targetPort: 5432
+  selector:
+    io.kompose.service: compreface-postgres-db
+    app: postgresapp
+status:
+  loadBalancer: {}
+
