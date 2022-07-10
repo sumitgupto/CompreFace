@@ -19,7 +19,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './ui/main-layout/main-layout.component';
 import { DemoLayoutComponent } from './ui/demo-layout/demo-layout.component';
 import { UserInfoResolver } from './core/user-info/user-info.resolver';
-import { CreateApplicationGuard } from './pages/create-application-wizard/create-application.guard';
 
 const routes: Routes = [
   {
@@ -41,32 +40,11 @@ const routes: Routes = [
     children: [{ path: '', loadChildren: () => import('./pages/test-model/test-model.module').then(m => m.TestModelModule) }],
   },
   {
-    path: 'create-application',
-    component: MainLayoutComponent,
-    canActivate: [CreateApplicationGuard],
-    resolve: [UserInfoResolver],
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./pages/create-application-wizard/create-application-wizard.module').then(m => m.CreateApplicationWizardModule),
-      },
-    ],
-  },
-  {
     path: 'manage-collection',
     component: MainLayoutComponent,
     resolve: [UserInfoResolver],
     children: [
       { path: '', loadChildren: () => import('./pages/manage-collection/manage-collection.module').then(m => m.ManageCollectionModule) },
-    ],
-  },
-  {
-    path: 'dashboard',
-    component: MainLayoutComponent,
-    resolve: [UserInfoResolver],
-    children: [
-      { path: '', loadChildren: () => import('./pages/model-dashboard/model-dashboard.module').then(m => m.ModelDashboardModule) },
     ],
   },
   {
@@ -83,4 +61,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

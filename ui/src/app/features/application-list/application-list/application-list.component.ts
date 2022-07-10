@@ -15,8 +15,8 @@
  */
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Role } from 'src/app/data/enums/role.enum';
+import { ITableConfig } from '../../table/table.component';
 import { TranslateService } from '@ngx-translate/core';
-import { Application } from 'src/app/data/interfaces/application';
 
 @Component({
   selector: 'app-application-list',
@@ -26,12 +26,11 @@ import { Application } from 'src/app/data/interfaces/application';
 })
 export class ApplicationListComponent {
   @Input() isLoading: boolean;
-  @Input() applicationCollection: Application[];
+  @Input() tableConfig: ITableConfig;
   @Input() userRole: string;
 
   @Output() selectApp = new EventEmitter();
   @Output() createApp = new EventEmitter();
-  @Output() manageUsers = new EventEmitter();
 
   roleEnum = Role;
   search = '';
@@ -46,6 +45,6 @@ export class ApplicationListComponent {
     const titleApp: string = this.translate.instant('applications.title');
     const titleCreate: string = this.translate.instant('applications.first_steps_title');
 
-    return this.applicationCollection.length > 0 ? titleApp : titleCreate;
+    return this.tableConfig.data.length > 0 ? titleApp : titleCreate;
   }
 }

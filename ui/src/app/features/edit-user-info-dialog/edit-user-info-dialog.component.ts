@@ -21,7 +21,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-edit-user-info-dialog',
   templateUrl: './edit-user-info-dialog.component.html',
-  styleUrls: ['./edit-user-info-dialog.component.scss'],
 })
 export class EditUserInfoDialogComponent implements OnInit {
   form: FormGroup;
@@ -31,12 +30,11 @@ export class EditUserInfoDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditUserInfoDialogComponent>,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: { firstName: string; lastName: string }
+    @Inject(MAT_DIALOG_DATA) public data: { userName: string }
   ) {}
 
   ngOnInit(): void {
-    this.firstName = this.data?.firstName;
-    this.lastName = this.data?.lastName;
+    [this.firstName, this.lastName] = this.data?.userName.split(' ');
     this.form = this.formBuilder.group({
       firstName: new FormControl(this.firstName, [Validators.required]),
       lastName: new FormControl(this.lastName, [Validators.required]),

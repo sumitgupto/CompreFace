@@ -17,7 +17,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { selectCurrentApiKey, selectCurrentModel } from '../../store/model/selectors';
+import { selectCurrentApiKey } from '../../store/model/selectors';
 import {
   selectAddSubjectPending,
   selectCollectionSubject,
@@ -29,7 +29,9 @@ import {
 import {
   deleteItemFromUploadOrder,
   deleteSelectedExamples,
+  deleteSubject,
   deleteSubjectExample,
+  editSubject,
   getSubjectExamples,
   getSubjectMediaNextPage,
   readImageFiles,
@@ -41,7 +43,6 @@ import {
 } from '../../store/manage-collectiom/action';
 import { CollectionItem } from 'src/app/data/interfaces/collection';
 import { SubjectModeEnum } from 'src/app/data/enums/subject-mode.enum';
-import { filter, map } from 'rxjs/operators';
 
 @Injectable()
 export class CollectionRightFacade {
@@ -53,7 +54,6 @@ export class CollectionRightFacade {
   isPending$: Observable<boolean>;
   isCollectionPending$: Observable<boolean>;
   subjectMode$: Observable<SubjectModeEnum>;
-  currentModelName$: Observable<string>;
 
   constructor(private store: Store<any>) {
     this.defaultSubject$ = this.store.select(selectCollectionSubject);
@@ -64,10 +64,14 @@ export class CollectionRightFacade {
     this.isPending$ = this.store.select(selectAddSubjectPending);
     this.isCollectionPending$ = this.store.select(selectImageCollectionPending);
     this.subjectMode$ = this.store.select(selectSubjectMode);
-    this.currentModelName$ = this.store.select(selectCurrentModel).pipe(
-      filter(model => !!model),
-      map(model => model.name)
-    );
+  }
+
+  edit(editName: string, subject: string, apiKey: string): void {
+    this.store.dispatch(editSubject({ editName, apiKey, subject }));
+  }
+
+  delete(name: string, apiKey: string): void {
+    this.store.dispatch(deleteSubject({ name, apiKey }));
   }
 
   loadSubjectMedia(subject: string): void {

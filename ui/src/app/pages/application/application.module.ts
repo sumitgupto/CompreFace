@@ -18,6 +18,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { AppUserListModule } from 'src/app/features/app-user-list/application-user-list.module';
 import { BreadcrumbsContainerModule } from 'src/app/features/breadcrumbs.container/breadcrumbs.container.module';
 import { ModelListModule } from 'src/app/features/model-list/model-list.module';
 
@@ -36,6 +37,7 @@ import { ApplicationPageService } from './application.service';
     MatButtonModule,
     ApplicationHeaderModule,
     ModelListModule,
+    AppUserListModule,
     FooterModule,
     ApplicationListModule,
     ToolBarModule,

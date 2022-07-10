@@ -13,8 +13,16 @@
   ~ or implied. See the License for the specific language governing
   ~ permissions and limitations under the License.
   -->
-<div class="container" style="height: calc(100vh - 180px)">
+<div class="collection container">
   <app-breadcrumbs-container></app-breadcrumbs-container>
 
-  <collection-manager></collection-manager>
+  <div class="collection--grid">
+    <mat-card class="collection--grid_subjects-list">
+      <app-application-list-container></app-application-list-container>
+    </mat-card>
+
+    <mat-card class="collection--grid_profile">
+      <app-application-right-container></app-application-right-container>
+    </mat-card>
+  </div>
 </div>

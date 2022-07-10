@@ -17,20 +17,24 @@
 @import 'mixins.scss';
 
 .main {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  .add-subject {
+    padding-bottom: 16px;
+    border-bottom: 1px solid $light-gray-special;
+
+    .mat-flat-button {
+      height: 43px;
+      width: 100%;
+    }
+  }
+
+  .search {
+    margin-top: 15px;
+  }
 
   .subjects {
-    height: 90%;
-    padding-right: 16px;
+    height: calc(100vh - 438px);
+    min-height: 300px;
     overflow-y: auto;
-
-    .label {
-      padding-left: 8px;
-      font-size: 13px;
-      color: rgb(42, 42, 42);
-    }
 
     .select {
       border: none;
@@ -46,64 +50,48 @@
 
     .option {
       border-bottom: 1px solid $special-gray;
-      list-style: none;
-      padding: 0.5rem 0.7rem;
+      border-radius: 1px;
+      cursor: pointer;
 
-      &[selected='true'],
+      list-style: none;
+      padding: 0.7rem;
+
+      &[selected='true'] {
+        background: #e5f2fa;
+      }
+
       &:hover {
-        background: rgb(204, 204, 204);
-        border-radius: 8px;
+        border-bottom: 1px solid $primary;
+      }
+
+      div {
+        padding: 0 !important;
+
+        .material-icon {
+          font-size: 28px;
+          color: $special-gray;
+        }
+        .selected-icon {
+          color: $primary;
+        }
       }
 
       .avatar {
-        cursor: pointer;
+        margin-right: 13px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
 
-        .actions {
-          display: flex;
-
-          button {
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-
-            .mat-icon {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 12px;
-              flex-shrink: 0;
-            }
-          }
+        mat-icon {
+          flex-shrink: 0;
         }
 
         .name {
-          font-size: 14px;
+          font-size: 18px;
           color: $black;
+          margin-left: 13px;
           @include not-break-string();
         }
       }
-    }
-  }
-
-  .btn-container {
-    height: 10%;
-    width: 100%;
-    display: flex;
-
-    button {
-      margin: auto 0 10px;
-      background: #797979;
-      border: 2px solid rgb(199, 199, 199);
-      border-radius: 16px;
-      font-size: 14px;
-      color: white;
-      width: 100%;
     }
   }
 }

@@ -14,16 +14,10 @@
   ~ permissions and limitations under the License.
   -->
 <ng-container [ngSwitch]="state">
-  <div
-    *ngSwitchCase="progressEnum.OnHold"
-    class="image-load-onhold"
-    (click)="cancel.emit()"
-    matTooltip="cancel upload"
-    matTooltipClass="top-arrow"
-  >
+  <div *ngSwitchCase="progressEnum.OnHold" class="image-load-onhold" (click)="cancel.emit()" matTooltip="cancel upload">
     <mat-icon>highlight_off</mat-icon>
   </div>
-  <div *ngSwitchCase="progressEnum.Failed" class="image-load-failed" [matTooltip]="error" matTooltipClass="top-arrow">
+  <div *ngSwitchCase="progressEnum.Failed" class="image-load-failed" [matTooltip]="error">
     <mat-icon>warning_amber</mat-icon>
   </div>
   <div *ngSwitchCase="progressEnum.InProgress" class="image-load-in-progress">

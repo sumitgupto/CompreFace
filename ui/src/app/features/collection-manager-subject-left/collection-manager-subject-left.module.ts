@@ -21,8 +21,6 @@ import { MatListModule } from '@angular/material/list';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppSearchTableModule } from '../app-search-table/app-search-table.module';
 import { CollectionLeftFacade } from './collection-left-facade';
 import { SpinnerModule } from '../spinner/spinner.module';
@@ -30,7 +28,7 @@ import { TablePipeModule } from '../../ui/search-pipe/table-filter.module';
 import { CollectionManagerSubjectLeftContainerComponent } from './collection-manager-subject-left.container.component';
 import { CollectionRightFacade } from '../collection-manager-subject-right/collection-manager-right-facade';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { TruncateModule } from 'src/app/ui/truncate-pipe/truncate.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [CollectionManagerSubjectLeftContainerComponent, CollectionManagerSubjectLeftComponent, ConfirmDialogComponent],
@@ -44,8 +42,6 @@ import { TruncateModule } from 'src/app/ui/truncate-pipe/truncate.module';
     SpinnerModule,
     TablePipeModule,
     MatDialogModule,
-    MatTooltipModule,
-    TruncateModule,
   ],
   exports: [CollectionManagerSubjectLeftContainerComponent],
   providers: [CollectionLeftFacade, CollectionRightFacade],

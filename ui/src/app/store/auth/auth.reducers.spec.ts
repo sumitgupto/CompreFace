@@ -13,7 +13,6 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import { TestBed } from '@angular/core/testing';
 import { logInFail, logInSuccess, signUpFail, signUpSuccess, changePasswordSuccess, changePasswordFail, logIn, signUp } from './action';
 import { authReducer, initialState } from './reducers';
 
@@ -45,7 +44,7 @@ describe('AuthReducer', () => {
 
   describe('SIGNUP_SUCCESS action', () => {
     it('should loading false', () => {
-      const action = signUpSuccess({ confirmationNeeded: false, email: 'test@test.com', password: 'test1234' });
+      const action = signUpSuccess({ confirmationNeeded: false });
       const state = authReducer(initialState, action);
 
       expect(state.isLoading).toBe(false);

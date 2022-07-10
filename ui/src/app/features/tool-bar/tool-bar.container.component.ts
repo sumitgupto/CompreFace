@@ -19,14 +19,12 @@ import { Observable } from 'rxjs';
 import { ToolBarFacade } from './tool-bar.facade';
 import { ChangePassword } from '../../data/interfaces/change-password';
 import { EditUserInfo } from '../../data/interfaces/edit-user-info';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tool-bar-container',
   template: ` <app-tool-bar
     [userAvatarInfo]="userAvatarInfo$ | async"
-    [userFirstName]="userFirstName$ | async"
-    [userLastName]="userLastName$ | async"
+    [userName]="userName$ | async"
     [isUserInfoAvailable]="isUserInfoAvailable$ | async"
     (logout)="logout()"
     (signUp)="goSignUp()"
@@ -37,17 +35,15 @@ import { map } from 'rxjs/operators';
 })
 export class ToolBarContainerComponent implements OnInit {
   userAvatarInfo$: Observable<string>;
-  userFirstName$: Observable<string>;
-  userLastName$: Observable<string>;
+  userName$: Observable<string>;
   isUserInfoAvailable$: Observable<boolean>;
 
   constructor(private toolBarFacade: ToolBarFacade) {}
 
   ngOnInit() {
     this.userAvatarInfo$ = this.toolBarFacade.userAvatarInfo$;
-    this.userFirstName$ = this.toolBarFacade.userFirstName$;
-    this.userLastName$ = this.toolBarFacade.userLastName$;
-    this.isUserInfoAvailable$ = this.toolBarFacade.isUserInfoAvailable$.pipe(map(id => !!id));
+    this.userName$ = this.toolBarFacade.userName$;
+    this.isUserInfoAvailable$ = this.toolBarFacade.isUserInfoAvailable$;
   }
 
   goSignUp() {

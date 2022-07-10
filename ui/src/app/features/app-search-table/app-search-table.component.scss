@@ -31,7 +31,6 @@
   }
 
   &--title {
-    font-size: 2rem;
     margin: 0 16px 0 0;
 
     @include mobile {
@@ -55,12 +54,11 @@
     &_input {
       padding: 8px 25px 8px 8px;
       width: 100%;
-      border: none;
-      border-bottom: 1px solid $light-gray;
-      background: none;
+      border: 1px solid $super-light-gray;
+      border-radius: 4px;
       font-size: 14px;
       box-sizing: border-box;
-      outline: none;
+      outline-color: $primary;
 
       &::placeholder {
         color: $gray;
@@ -79,12 +77,6 @@
   &--btn {
     margin-left: 8px;
     padding: 0;
-
-    &_user_list {
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
 
     @include mobile {
       margin: 0;

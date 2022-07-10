@@ -13,28 +13,14 @@
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+@import 'mixins.scss';
 @import 'colors.scss';
 @import 'mixins.scss';
 
 .collection-right-container {
-  height: 98%;
+  height: 100%;
   padding-right: 1.5rem;
   overflow-y: scroll;
-
-  &--header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $light-gray;
-    margin-bottom: 1.5rem;
-    color: $medium-gray;
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .count {
-      font-size: 20px;
-    }
-  }
 }
 .spinner {
   display: flex;
@@ -83,11 +69,11 @@
 }
 
 .drag-and-drop-container {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .image-holder-collection-container {
-  padding-top: 1rem;
+  padding: 1rem 0 0;
 
   &--spinner {
     display: flex;

@@ -16,7 +16,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { ApplicationService } from 'src/app/core/application/application.service';
@@ -45,9 +44,8 @@ export class ApplicationListEffect {
     private actions: Actions,
     private applicationService: ApplicationService,
     private snackBarService: SnackBarService,
-    private router: Router,
-    private store: Store<any>
-  ) { }
+    private router: Router
+  ) {}
 
   @Effect()
   loadApplications$ = this.actions.pipe(
@@ -69,15 +67,6 @@ export class ApplicationListEffect {
         catchError(error => of(createApplicationFail({ error })))
       )
     )
-  );
-
-  @Effect({ dispatch: false })
-  createApplicationSuccess$ = this.actions.pipe(
-    ofType(createApplicationSuccess),
-    tap(({ application }) =>
-     {
-      this.store.dispatch(setSelectedAppIdEntityAction({ selectedAppId: application.id }))
-     })
   );
 
   @Effect()

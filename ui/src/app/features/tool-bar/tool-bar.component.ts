@@ -29,8 +29,7 @@ import { EditUserInfoDialogComponent } from '../edit-user-info-dialog/edit-user-
 })
 export class ToolBarComponent {
   @Input() userAvatarInfo: string;
-  @Input() userFirstName: string;
-  @Input() userLastName: string;
+  @Input() userName: string;
   @Input() isUserInfoAvailable: boolean;
   @Output() logout = new EventEmitter();
   @Output() signUp = new EventEmitter();
@@ -73,7 +72,7 @@ export class ToolBarComponent {
   onEditUserInfo() {
     const dialog = this.dialog.open(EditUserInfoDialogComponent, {
       panelClass: 'custom-mat-dialog',
-      data: { firstName: this.userFirstName, lastName: this.userLastName },
+      data: { userName: this.userName },
     });
 
     dialog

@@ -16,7 +16,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { ModelService } from 'src/app/core/model/model.service';
 import { SnackBarService } from 'src/app/features/snackbar/snackbar.service';
 import { Router } from '@angular/router';
@@ -39,9 +39,6 @@ import {
   updateModelFail,
   updateModelSuccess,
 } from './action';
-import { ServiceTypes } from 'src/app/data/enums/service-types.enum';
-import { Store } from '@ngrx/store';
-import { selectCurrentApp } from '../application/selectors';
 
 @Injectable()
 export class ModelEffects {
@@ -49,9 +46,8 @@ export class ModelEffects {
     private actions: Actions,
     private modelService: ModelService,
     private snackBarService: SnackBarService,
-    private router: Router,
-    private store: Store<any>
-  ) { }
+    private router: Router
+  ) {}
 
   @Effect()
   loadModels$ = this.actions.pipe(
@@ -64,43 +60,16 @@ export class ModelEffects {
     )
   );
 
-  isFirtsService: boolean;
-
   @Effect()
   createModel$ = this.actions.pipe(
     ofType(createModel),
-    tap(({ model }) => this.isFirtsService = model.isFirstService),
-    switchMap((action) =>
+    switchMap(action =>
       this.modelService.create(action.model.applicationId, action.model.name, action.model.type).pipe(
         map(model => createModelSuccess({ model })),
         catchError(error => of(createModelFail({ error })))
       )
     )
   );
-
-  @Effect({ dispatch: false })
-  createModelSuccess$ = this.actions.pipe(
-    ofType(createModelSuccess),
-    withLatestFrom(this.store.select(selectCurrentApp)),
-    tap(([{ model }, app]) => {
-      if(this.isFirtsService){
-        model.type === ServiceTypes.Recognition ?
-        this.router.navigate([Routes.ManageCollection], {
-          queryParams: {
-            app: app.id,
-            model: model.id,
-            type: model.type,
-          },
-        }) : this.router.navigate([Routes.TestModel], {
-          queryParams: {
-            app: app.id,
-            model: model.id,
-            type: model.type,
-          },
-        });
-      }
-    })
-  )
 
   @Effect()
   updateModel$ = this.actions.pipe(

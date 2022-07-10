@@ -38,7 +38,6 @@ import {
 } from './action';
 import { Store } from '@ngrx/store';
 import { selectQueryParams } from '../router/selectors';
-import { selectDemoPageAvailability } from '../demo/selectors';
 
 @Injectable()
 export class AuthEffects {
@@ -66,16 +65,12 @@ export class AuthEffects {
   @Effect({ dispatch: false })
   logInSuccess$: Observable<any> = this.actions.pipe(
     ofType(logInSuccess),
-    withLatestFrom(
-      this.store.select(selectQueryParams),
-      this.store.select(selectDemoPageAvailability)),
-    map(([, queryParams, isDemoPageAvailable]) => {
+    withLatestFrom(this.store.select(selectQueryParams)),
+    map(([, queryParams]) => {
       const { redirect } = queryParams;
-      return [redirect, isDemoPageAvailable];
+      return redirect;
     }),
-    tap(([redirect, isDemoPageAvailable]) => 
-      isDemoPageAvailable ? this.router.navigateByUrl(Routes.CreateApplication) : 
-        this.router.navigateByUrl(redirect || Routes.Home))
+    tap(redirect => this.router.navigateByUrl(redirect || Routes.Home))
   );
 
   @Effect({ dispatch: false })
@@ -106,16 +101,18 @@ export class AuthEffects {
     ofType(signUp),
     switchMap(payload =>
       this.authService.signUp(payload.firstName, payload.password, payload.email, payload.lastName, payload.isAllowStatistics).pipe(
-        map(res => signUpSuccess({ confirmationNeeded: res.status === 200, email: payload.email, password: payload.password })),
+        map(res => signUpSuccess({ confirmationNeeded: res.status === 200 })),
         catchError(error => observableOf(signUpFail(error)))
       )
     )
   );
 
-  @Effect()
+  @Effect({ dispatch: false })
   signUpSuccess$: Observable<any> = this.actions.pipe(
     ofType(signUpSuccess),
-    map(res => logIn({ email: res.email, password: res.password }))
+    tap(() => {
+      this.router.navigateByUrl(Routes.Login);
+    })
   );
 
   @Effect({ dispatch: false })

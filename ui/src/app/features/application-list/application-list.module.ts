@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SnackBarModule } from 'src/app/features/snackbar/snackbar.module';
 import { SpinnerModule } from 'src/app/features/spinner/spinner.module';
 
+import { TableModule } from '../table/table.module';
 import { ApplicationListContainerComponent } from './application-list-container.component';
 import { ApplicationListFacade } from './application-list-facade';
 import { ApplicationListComponent } from './application-list/application-list.component';
@@ -29,8 +30,6 @@ import { FormsModule } from '@angular/forms';
 import { TablePipeModule } from '../../ui/search-pipe/table-filter.module';
 import { MatInputModule } from '@angular/material/input';
 import { AppSearchTableModule } from '../app-search-table/app-search-table.module';
-import { ApplicationCollectionContainerModule } from '../application-collection-container/application-collection-container.module';
-import { ManageUsersModule } from '../manage-users-dialog/manage-users.module';
 
 @NgModule({
   declarations: [ApplicationListContainerComponent, ApplicationListComponent],
@@ -38,6 +37,7 @@ import { ManageUsersModule } from '../manage-users-dialog/manage-users.module';
   providers: [ApplicationListFacade],
   imports: [
     CommonModule,
+    TableModule,
     SpinnerModule,
     MatButtonModule,
     SnackBarModule,
@@ -48,8 +48,6 @@ import { ManageUsersModule } from '../manage-users-dialog/manage-users.module';
     TablePipeModule,
     MatInputModule,
     AppSearchTableModule,
-    ApplicationCollectionContainerModule,
-    ManageUsersModule,
   ],
 })
 export class ApplicationListModule {}

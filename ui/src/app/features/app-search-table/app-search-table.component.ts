@@ -15,7 +15,6 @@
  */
 
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { Application } from 'src/app/data/interfaces/application';
 
 @Component({
   selector: 'app-search-table',
@@ -29,9 +28,7 @@ export class AppSearchTableComponent {
   @Input() buttonText: string;
   @Input() requiredRole: string;
   @Input() currentRole: string;
-  @Input() hideContent: boolean;
 
-  @Output() manageUsersView = new EventEmitter();
   @Output() inputSearch: EventEmitter<string> = new EventEmitter();
   @Output() modalWindow: EventEmitter<MouseEvent> = new EventEmitter();
 
@@ -42,9 +39,5 @@ export class AppSearchTableComponent {
 
   onButtonChange(event: MouseEvent): void {
     this.modalWindow.emit(event);
-  }
-
-  onOpenUserList() {
-    this.manageUsersView.emit();
   }
 }
