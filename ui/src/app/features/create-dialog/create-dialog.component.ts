@@ -19,9 +19,16 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-create-dialog',
   templateUrl: './create-dialog.component.html',
+  styleUrls: ['./create-dialog.component.scss'],
 })
 export class CreateDialogComponent {
+  alreadyExists: boolean;
+
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onChange(name): void {
+    this.alreadyExists = !!this.data.nameList.find(appName => appName === name);
+  }
 
   onCancelClick(): void {
     this.dialogRef.close();

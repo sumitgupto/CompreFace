@@ -14,7 +14,23 @@
  * permissions and limitations under the License.
  */
 @import 'forms.scss';
+@import 'colors.scss';
 
 .login-card {
-  @include form-card();
+  @include login-card($medium-gray, $lighter-gray);
+}
+
+.form-field {
+  @include form-field($light-gray, $lighter-gray);
+}
+
+.btn {
+  @include submit-btn;
+  width: 100%;
+  margin: 1.5rem 0 1rem;
+  padding: 5px;
+}
+
+.link {
+  @include login-link($medium-gray);
 }

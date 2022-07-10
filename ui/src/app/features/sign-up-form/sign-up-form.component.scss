@@ -14,17 +14,21 @@
  * permissions and limitations under the License.
  */
 @import 'forms.scss';
-@import 'media.scss';
+@import 'colors.scss';
 
 .sign-up-card {
-  @include form-card();
+  @include login-card($medium-gray, $lighter-gray);
+}
 
-  .mat-input-wrapper {
-    display: flex;
-    justify-content: space-between;
-
-    @include mobile-portrait {
-      flex-direction: column;
-    }
-  }
+.form-field {
+  @include form-field($light-gray, $lighter-gray);
+}
+.btn {
+  @include submit-btn;
+  width: 100%;
+  margin: 1.5rem 0 1rem;
+  padding: 5px;
+}
+.link {
+  @include login-link($medium-gray);
 }
