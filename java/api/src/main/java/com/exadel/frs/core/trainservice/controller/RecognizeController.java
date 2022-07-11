@@ -42,7 +42,7 @@ import static com.exadel.frs.core.trainservice.system.global.Constants.*;
 public class RecognizeController {
 
     private final FaceProcessService recognitionService;
-    private static Logger logger;
+    //private static Logger logger;
 
     @PostMapping(value = "/recognition/recognize", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public FacesRecognitionResponseDto recognize(
@@ -87,9 +87,6 @@ public class RecognizeController {
             @ApiParam(value = PREDICTION_COUNT_DESC) @RequestParam(value = PREDICTION_COUNT_REQUEST_PARAM, required = false, defaultValue = PREDICTION_COUNT_DEFAULT_VALUE) @Min(value = 1, message = PREDICTION_COUNT_MIN_DESC) Integer predictionCount,
             @RequestBody @Valid Base64File request) {
 
-        logger.info("Printing request start");
-        logger.info(request.getContent().toString());
-        logger.info("Printing request end");
 
         ProcessImageParams processImageParams = ProcessImageParams
                 .builder()
