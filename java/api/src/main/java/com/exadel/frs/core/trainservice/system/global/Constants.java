@@ -61,9 +61,4 @@ public class Constants {
     public static final String FACENET2018 = "Facenet2018";
     public static final String SERVER_UUID = UUID.randomUUID().toString();
     public static final String CACHE_CONTROL_HEADER_VALUE = "public, max-age=31536000";
-
-    public static final String BUSINESS_KEY = "businessKey";
-    public static final String ACTION_FLAG = "flag";
-    public static final String SUBJECT_NAME = "subjectName";
-    public static final String IMAGE_URI = "imageUri";
 }

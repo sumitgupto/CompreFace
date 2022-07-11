@@ -90,30 +90,6 @@ public class EmbeddingController {
         return new EmbeddingDto(pair.getRight().getId().toString(), subjectName);
     }
 
-    //Custom Method
-
-    @WriteEndpoint
-    @ResponseStatus(CREATED)
-    @PostMapping(value = "/addfacetocollection", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public EmbeddingDto addFaceToCollection(
-            @ApiParam(value = API_KEY_DESC, required = true) @RequestHeader(X_FRS_API_KEY_HEADER) final String apiKey,
-            //@ApiParam(value = SUBJECT_DESC) @Valid @NotBlank(message = SUBJECT_NAME_IS_EMPTY) @RequestParam(value = SUBJECT) String subjectName,
-            @ApiParam(value = DET_PROB_THRESHOLD_DESC) @RequestParam(value = DET_PROB_THRESHOLD, required = false) final Double detProbThreshold,
-            @Valid @RequestBody Base64File request) {
-        imageValidator.validateBase64(request.getContent());
-        String subjectName = request.getSubjectName();
-
-        final Pair<Subject, Embedding> pair = subjectService.saveCalculatedEmbedding(
-                request.getContent(),
-                subjectName,
-                detProbThreshold,
-                apiKey
-        );
-
-        return new EmbeddingDto(pair.getRight().getId().toString(), subjectName);
-    }
-
-
     @GetMapping(value = "/{embeddingId}/img", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public @ResponseBody
     byte[] downloadImg(HttpServletResponse response,

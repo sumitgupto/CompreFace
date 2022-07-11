@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/oauth/**").permitAll()
-                .antMatchers("/actuator/**", "/user/register", "/api/**", "/apps").permitAll()
+                .antMatchers("/actuator/**", "/user/register", "/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/**", "/api/**", "/apps", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**",
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**",
                 "/swagger-ui**", "/webjars/**", "/lms/**"
         );
     }
