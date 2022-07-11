@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+  compreface-fe:
+    build:
+      context: ../ui
+      dockerfile: docker-prod/Dockerfile
+    environment:
+      - CLIENT_MAX_BODY_SIZE=${max_request_size}
